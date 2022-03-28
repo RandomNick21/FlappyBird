@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ObstaclesFabric : MonoBehaviour, IPauseHandler
+public class ObstaclesFactory : MonoBehaviour, IPauseHandler
 {
     [HideInInspector] public List<Transform> Obstacles;
     
@@ -19,7 +18,7 @@ public class ObstaclesFabric : MonoBehaviour, IPauseHandler
     private void Awake()
     {
         _camera = Camera.main;
-        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
+        _spawnCoroutine = StartCoroutine(Spawn());
     }
 
     private void OnEnable()
@@ -32,7 +31,7 @@ public class ObstaclesFabric : MonoBehaviour, IPauseHandler
         PauseManager.Instance.UnRegister(this);
     }
 
-    private IEnumerator SpawnCoroutine()
+    private IEnumerator Spawn()
     {
         while (true)
         {
@@ -60,6 +59,6 @@ public class ObstaclesFabric : MonoBehaviour, IPauseHandler
         if (isPaused)
             StopCoroutine(_spawnCoroutine);
         else
-            _spawnCoroutine = StartCoroutine(SpawnCoroutine());
+            _spawnCoroutine = StartCoroutine(Spawn());
     }
 }

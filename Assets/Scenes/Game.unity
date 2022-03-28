@@ -629,11 +629,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 460874668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12b0e69791b8fc49b3adb7ebc93a43a, type: 3}
+  m_Script: {fileID: 11500000, guid: b27765ed2b2c4c846b0783026a0d2a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: 3
-  IDScene: 0
+  _scene: 3
+  _id: 2
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1012,7 @@ GameObject:
   - component: {fileID: 769464378}
   - component: {fileID: 769464377}
   - component: {fileID: 769464379}
+  - component: {fileID: 769464384}
   - component: {fileID: 769464382}
   - component: {fileID: 769464383}
   - component: {fileID: 769464381}
@@ -1142,9 +1143,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  HeightFly: 2.7
-  SpeedFly: 3.5
-  SpeedFall: 5.8
+  Height: 2.2
+  Speed: 2.8
 --- !u!50 &769464380
 Rigidbody2D:
   serializedVersion: 4
@@ -1160,7 +1160,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0.11
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
@@ -1241,6 +1241,19 @@ MonoBehaviour:
   - {fileID: -579223739875177863, guid: c06f972c0a96fcd4996e6fd92a0d5d92, type: 3}
   - {fileID: -6727385542081558410, guid: c06f972c0a96fcd4996e6fd92a0d5d92, type: 3}
   ShiftTime: 0.15
+--- !u!114 &769464384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769464376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ad7eee53115f144b92b9a65e07dd2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpeedFall: 5
 --- !u!1 &831259616
 GameObject:
   m_ObjectHideFlags: 0

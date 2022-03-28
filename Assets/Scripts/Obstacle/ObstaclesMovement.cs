@@ -1,25 +1,25 @@
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(ObstaclesFabric))]
+[RequireComponent(typeof(ObstaclesFactory))]
 public class ObstaclesMovement : MonoBehaviour
 {
     [SerializeField] private float Speed;
-    private ObstaclesFabric _fabric;
+    private ObstaclesFactory _factory;
 
     private bool _isPaused => PauseManager.Instance.IsPaused;
 
     private void Awake()
     {
-        _fabric = GetComponent<ObstaclesFabric>();
+        _factory = GetComponent<ObstaclesFactory>();
     }
 
     private void FixedUpdate()
     {
-        if (_fabric.Obstacles.Count == 0 || _isPaused)
+        if (_factory.Obstacles.Count == 0 || _isPaused)
             return;
 
-        foreach (var obstacle in _fabric.Obstacles.Where(obstacle => obstacle != null))
+        foreach (var obstacle in _factory.Obstacles.Where(obstacle => obstacle != null))
         {
             obstacle.transform.position -= Vector3.right * Speed;
         }

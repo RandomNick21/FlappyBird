@@ -2,13 +2,11 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BirdMovement : MonoBehaviour, IPauseHandler
+public class AnimationCurveMovement : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private AnimationCurve FlyCurve;
-    [SerializeField] private float HeightFly = 1f;
-    [SerializeField] private float SpeedFly = 1f;
-    [Space] 
-    [SerializeField] private float SpeedFall;
+    [SerializeField] private float Height = 1f;
+    [SerializeField] private float Speed = 1f;
     
     private readonly WaitForFixedUpdate _waitForFixedUpdate = new WaitForFixedUpdate();
     
@@ -28,19 +26,14 @@ public class BirdMovement : MonoBehaviour, IPauseHandler
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && !IsPaused)
-            _flyCoroutine = StartCoroutine(Fly());
+        if(IsPaused)
+            return;
+        
+        if (Input.GetKeyDown(KeyCode.A))
+            _flyCoroutine = StartCoroutine(Move());
         
         if(!_camera.IsObjectVisible(gameObject))
             GlobalGameStateMachine.Instance.SetState<GameOverState>();
-    }
-
-    private void FixedUpdate()
-    {
-        if (IsPaused)
-            return;
-        
-        _rigidbody.velocity = Vector2.down * SpeedFall;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -48,14 +41,14 @@ public class BirdMovement : MonoBehaviour, IPauseHandler
         GlobalGameStateMachine.Instance.SetState<GameOverState>();
     }
 
-    private IEnumerator Fly()
+    private IEnumerator Move()
     {
         var startPositionY = transform.position.y;
         
-        for (var t = 0f; t < 1; t += Time.deltaTime * SpeedFly)
+        for (var t = 0f; t < 1; t += Time.deltaTime * Speed)
         {
             transform.position = new Vector3(transform.position.x, 
-                startPositionY + FlyCurve.Evaluate(t) * HeightFly, transform.position.z);
+                startPositionY + FlyCurve.Evaluate(t) * Height, transform.position.z);
 
             yield return _waitForFixedUpdate;
         }

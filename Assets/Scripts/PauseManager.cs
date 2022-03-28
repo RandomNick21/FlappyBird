@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseManager : MonoBehaviour, IPauseHandler
+public class PauseManager : MonoBehaviour
 {
     private readonly List<IPauseHandler> _handlers = new List<IPauseHandler>();
     

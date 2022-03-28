@@ -4,11 +4,10 @@ using UnityEngine;
 public class GlobalGameStateMachine : MonoBehaviour
 {
     [SerializeField] private GameOverStateView GameOverStateView;
-
-    private BaseState CurrentState { get; set; }
-    public static GlobalGameStateMachine Instance { get; private set; }
-
     private readonly List<StateFacade> _stateFacades = new List<StateFacade>();
+    private BaseState _currentState;
+    
+    public static GlobalGameStateMachine Instance { get; private set; }
 
     private void Awake()
     {
@@ -23,30 +22,28 @@ public class GlobalGameStateMachine : MonoBehaviour
 
     private void Update()
     {
-        CurrentState?.Update();
+        _currentState?.Update();
     }   
 
     public void SetState<T>(bool stopLast = true) where T : BaseState
     {
         var state = _stateFacades.Find(x => x.Type == typeof(T)).State;
-        
-        if(state == CurrentState)
-            return;
-        
-        if(stopLast) CurrentState?.Stop();
-        CurrentState = state;
-        CurrentState.Start();
+        SetStateBase(state, stopLast);
     }
     
     public void SetState(GameState gameState, bool stopLast = true)
     {
         var state = _stateFacades.Find(x => x.GameState == gameState).State;
-        
-        if(state == CurrentState)
+        SetStateBase(state, stopLast);
+    }
+
+    private void SetStateBase(BaseState state, bool stopLast)
+    {
+        if(state == _currentState)
             return;
         
-        if(stopLast) CurrentState?.Stop();
-        CurrentState = state;
-        CurrentState.Start();
+        if(stopLast) _currentState?.Stop();
+        _currentState = state;
+        _currentState.Start();
     }
 }
